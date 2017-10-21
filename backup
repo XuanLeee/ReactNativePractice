@@ -1,0 +1,145 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+'use strict';
+import React, { Component } from 'react';
+import Button from 'react-native-button';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Dimensions,
+  AlertIOS
+} from 'react-native';
+
+
+
+const instructions = Platform.select({
+  ios: 'Press Cmd+R to reload,\n' +
+    'Cmd+D or shake for dev menu',
+  android: 'Double tap R on your keyboard to reload,\n' +
+    'Shake or press menu button for dev menu',
+});
+
+
+export default class App extends Component{
+
+  constructor(props) {
+    super(props);
+    this.state =  state = {
+    email: "",
+    password: "",
+    confirm: "",
+    name: ""
+  };
+  }
+  change = e => {
+    this.props.onChange({ [e.target.name]: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+onSubmit = e => {
+    e.preventDefault();
+    // this.props.onSubmit(this.state);
+    this.setState({
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: ""
+    });
+    this.props.onChange({
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: ""
+    });
+     AlertIOS.alert('You tapped the button!');
+  };
+  
+  render() {
+    return (
+      <View style={styles.container}> 
+               <View style={styles.toolbar}>     
+                    <Text style={styles.toolbarTitle}>Signup</Text>
+                </View>
+
+         <TextInput style={styles.text} placeholder="Email" onChangeText={(text) => this.setState({text})}/>
+         <Text style={styles.error} hidden={true}>
+          {this.state.text.split(' ').map((word) => word && 'please enter valid email address').join(' ')}
+         </Text>
+         <TextInput style={styles.text} placeholder="Password" />
+         <TextInput style={styles.text} placeholder="Password Confirmation" />
+         <Text style={styles.error}>
+          {this.state.text.split(' ').map((word) => word && 'please enter same password again').join(' ')}
+         </Text>
+         <TextInput style={styles.text} placeholder="Name" />
+         <Text style={styles.error}>
+          {this.state.text.split(' ').map((word) => word && 'please enter less than 20 ').join(' ')}
+         </Text>
+          
+
+        <Button style={styles.buttons}
+         onPress={this._onPressButton}>
+         Sign Up
+        </Button>
+
+      </View>
+
+    );
+  }
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  toolbarTitle:{
+        fontSize: 20, 
+        color:'#000000',
+        textAlign:'center',
+        fontWeight:'bold',
+        flex:1              
+    },
+    toolbar:{
+       
+        paddingTop:50,
+        paddingBottom:30,
+        flexDirection:'row'    
+    },
+ 
+  text: {
+    margin: 20,
+    paddingBottom:5,
+    paddingTop:5,
+    fontSize: 20,
+    borderBottomColor: '#a9a9a9',
+    borderBottomWidth: 2
+},
+ 
+ buttons:{
+    fontSize: 20, 
+    color: '#ffffff',
+    backgroundColor:'#cc0000',
+    borderColor: '#000066',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingBottom:10,
+    paddingTop:10,
+    width: 180,  
+    textAlign:'center',  
+    alignSelf: 'center'
+ },
+ error:{
+    margin:20,
+    fontSize: 10,
+    color:'#cc0000',
+    borderBottomColor: '#cc0000',
+ }
+
+});
