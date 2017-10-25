@@ -27,7 +27,7 @@ export default class App extends Component{
     super(props);
     this.state = {
     
-      enter:null,
+      inputEmail:null,
       enterError:false,
       enterErrorMessage:'',
  
@@ -68,9 +68,6 @@ export default class App extends Component{
           {this.state.enterErrorMessage}
           </Text>    
 
-
-
-
          <TextInput 
          style={[styles.text,this.state.inputPasswordError?styles.error:null]}
          placeholder="Password" 
@@ -83,7 +80,41 @@ export default class App extends Component{
 
          <Text style={styles.error}>
           {this.state.inputPasswordErrorMessage}
-          </Text>  
+          </Text> 
+
+          <TextInput 
+
+         placeholder="Name" 
+         style={[styles.text,this.state.enterError?styles.error:null]}
+         onChangeText={(enter)=>{
+
+            this.setState({enter:enter});
+            let v = validate('name',enter);
+            this.setState({enterError:!v[0],enterErrorMessage:v[1]})
+          }
+          }
+
+          />
+          <Text style={styles.error}>
+          {this.state.enterErrorMessage}
+          </Text>
+
+
+         <TextInput 
+         style={[styles.text,this.state.enterError?styles.error:null]}
+         placeholder="Password Confirmation" 
+         onChangeText={(enter)=>{
+
+            this.setState({enter:enter});
+            let v = validate('passwordComfirm',enter);
+            this.setState({enterError:!v[0],enterErrorMessage:v[1]})
+          }
+          }
+         />
+         <Text style={styles.error}>
+          {this.state.enterErrorMessage}
+          </Text>
+ 
 
 
 
@@ -140,7 +171,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
  },
  error:{
-    margin:20,
+    
     fontSize: 10,
     paddingBottom:1, 
     paddingTop:1,
