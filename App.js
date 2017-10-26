@@ -45,14 +45,37 @@ export default class App extends Component{
   };
       
  }
-        
+   _getPassword(){
+      let valuePS=this.state.inputPassword;
+   } 
   
    _onPressButton(){
      AlertIOS.alert('You tapped the button!');
+      let emailValue=this.state.inputEmail;
+      let passwordValue=this.state.inputPassword;
+      let nameValue=this.state.inputName;
+     console.log(emailValue);
+     console.log(passwordValue);
+     console.log(nameValue);
+
+     fetch('https://jsonplaceholder.typicode.com/users', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+      email: '__tests__/',
+      password: 'yourOtherValue',
+      name:''
+
+     })
+   })
+
   };
-  
+
   render() {
-    
+     let passwordValue=this.state.inputPassword;
     return (
       <View style={styles.container}> 
               
@@ -95,13 +118,13 @@ export default class App extends Component{
          placeholder="Password Confirmation" 
          
          onChangeText={(passwordConfirm)=>{
-            let originPassword=123456;
+           
             this.setState({passwordConfirm:passwordConfirm});
-              
-              if(passwordConfirm!==originPassword){
-               this.setState({passwordConfirmError:true,passwordConfirmErrorMessage:'please enter same password as above'})
+              console.log(passwordValue);
+              if(passwordConfirm == passwordValue){
+               this.setState({passwordConfirmError:false,passwordConfirmErrorMessage:''})
               }else{
-                this.setState({passwordConfirmError:false,passwordConfirmErrorMessage:'please enter same password as above'})
+                this.setState({passwordConfirmError:true,passwordConfirmErrorMessage:'please enter same password as above'})
               }
           }
           }
@@ -129,7 +152,7 @@ export default class App extends Component{
 
 
         <Button style={styles.buttons}
-         onPress={this._onPressButton}>
+          onPress={() => this._onPressButton()}>
          Sign Up
         </Button>
 

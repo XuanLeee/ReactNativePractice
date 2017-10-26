@@ -35,7 +35,7 @@ export const validation = {
 export function validate(nameField, value){
   let resp = [null,null];
   if(validation.hasOwnProperty(nameField)){
-  console.log("validation")
+    console.log("validation")
   
     let v = validation[nameField]
         if(value==''||value==null){
