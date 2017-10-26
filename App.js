@@ -28,12 +28,20 @@ export default class App extends Component{
     this.state = {
     
       inputEmail:null,
-      enterError:false,
-      enterErrorMessage:'',
+      inputEmailError:false,
+      inputEmailErrorMessage:'',
  
       inputPassword:null,
       inputPasswordError:false,
-      inputPasswordErrorMessage:''
+      inputPasswordErrorMessage:'',
+
+      passwordConfirm:null,
+      passwordConfirmError:false,
+      passwordConfirmErrorMessage:'',
+
+      inputName:null,
+      inputNameError:null,
+      inputNameErrorMessage:''
   };
       
  }
@@ -54,18 +62,18 @@ export default class App extends Component{
 
 
          <TextInput 
-          style={[styles.text, this.state.enterError?styles.error:null]}
+          style={[styles.text, this.state.inputEmailError?styles.error:null]}
           placeholder="Email" 
-          onChangeText={(enter)=>{
+          onChangeText={(inputEmail)=>{
 
-            this.setState({enter:enter});
-            let v = validate('email',enter);
-            this.setState({enterError:!v[0],enterErrorMessage:v[1]})
+            this.setState({inputEmail:inputEmail});
+            let v = validate('email',inputEmail);
+            this.setState({inputEmailError:!v[0],inputEmailErrorMessage:v[1]})
           }
           }
           /> 
           <Text style={styles.error}>
-          {this.state.enterErrorMessage}
+          {this.state.inputEmailErrorMessage}
           </Text>    
 
          <TextInput 
@@ -82,41 +90,42 @@ export default class App extends Component{
           {this.state.inputPasswordErrorMessage}
           </Text> 
 
+         <TextInput 
+         style={[styles.text,this.state.passwordConfirmError?styles.error:null]}
+         placeholder="Password Confirmation" 
+         
+         onChangeText={(passwordConfirm)=>{
+            let originPassword=123456;
+            this.setState({passwordConfirm:passwordConfirm});
+              
+              if(passwordConfirm!==originPassword){
+               this.setState({passwordConfirmError:true,passwordConfirmErrorMessage:'please enter same password as above'})
+              }else{
+                this.setState({passwordConfirmError:false,passwordConfirmErrorMessage:'please enter same password as above'})
+              }
+          }
+          }
+         />
+         <Text style={styles.error}>
+          {this.state.passwordConfirmErrorMessage}
+          </Text>
+
           <TextInput 
 
          placeholder="Name" 
-         style={[styles.text,this.state.enterError?styles.error:null]}
-         onChangeText={(enter)=>{
+         style={[styles.text,this.state. inputNameError?styles.error:null]}
+         onChangeText={( inputName)=>{
 
-            this.setState({enter:enter});
-            let v = validate('name',enter);
-            this.setState({enterError:!v[0],enterErrorMessage:v[1]})
+            this.setState({ inputName: inputName});
+            let v = validate('name', inputName);
+            this.setState({ inputNameError:!v[0], inputNameErrorMessage:v[1]})
           }
           }
 
           />
           <Text style={styles.error}>
-          {this.state.enterErrorMessage}
+          {this.state. inputNameErrorMessage}
           </Text>
-
-
-         <TextInput 
-         style={[styles.text,this.state.enterError?styles.error:null]}
-         placeholder="Password Confirmation" 
-         onChangeText={(enter)=>{
-
-            this.setState({enter:enter});
-            let v = validate('passwordComfirm',enter);
-            this.setState({enterError:!v[0],enterErrorMessage:v[1]})
-          }
-          }
-         />
-         <Text style={styles.error}>
-          {this.state.enterErrorMessage}
-          </Text>
- 
-
-
 
 
         <Button style={styles.buttons}
@@ -149,7 +158,7 @@ const styles = StyleSheet.create({
     },
  
   text: {
-    margin: 20,
+    margin: 10,
     paddingBottom:5,
     paddingTop:5,
     fontSize: 20,
@@ -170,8 +179,8 @@ const styles = StyleSheet.create({
     textAlign:'center',  
     alignSelf: 'center'
  },
- error:{
-    
+ error:{ 
+    margin: 10,
     fontSize: 10,
     paddingBottom:1, 
     paddingTop:1,
