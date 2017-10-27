@@ -50,29 +50,42 @@ export default class App extends Component{
    } 
   
    _onPressButton(){
-     AlertIOS.alert('You tapped the button!');
+    
       let emailValue=this.state.inputEmail;
       let passwordValue=this.state.inputPassword;
       let nameValue=this.state.inputName;
      console.log(emailValue);
      console.log(passwordValue);
      console.log(nameValue);
+    
+     fetch('https://jsonplaceholder.typicode.com/users/1', {
+       method: 'POST',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+       },
+          body: JSON.stringify({
 
-     fetch('https://jsonplaceholder.typicode.com/users', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-      email: '__tests__/',
-      password: 'yourOtherValue',
-      name:''
-
-     })
-   })
-
-  };
+           email: emailValue,
+           password:passwordValue,
+           name: nameValue,
+        })
+      }).then((response) => {console.log('response:',response.status);
+                               var responseValue=response.status;
+                              if(responseValue==201){
+                                 console.log("create successfully")
+                              }else{
+                                console.log("Something Wrong")}
+                             
+                            })
+        .catch((error)=>{
+           console.log("Api call error");
+           alert(error.message);
+          }
+        );
+         
+    }
+    
 
   render() {
      let passwordValue=this.state.inputPassword;
