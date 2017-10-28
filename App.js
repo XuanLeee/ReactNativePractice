@@ -58,7 +58,7 @@ export default class App extends Component{
      console.log(passwordValue);
      console.log(nameValue);
     
-     fetch('https://jsonplaceholder.typicode.com/users/1', {
+     fetch('https://jsonplaceholder.typicode.com/users', {
        method: 'POST',
        headers: {
          'Accept': 'application/json',
@@ -148,16 +148,14 @@ export default class App extends Component{
 
           <TextInput 
 
-         placeholder="Name" 
-         style={[styles.text,this.state. inputNameError?styles.error:null]}
-         onChangeText={( inputName)=>{
-
-            this.setState({ inputName: inputName});
-            let v = validate('name', inputName);
-            this.setState({ inputNameError:!v[0], inputNameErrorMessage:v[1]})
-          }
-          }
-
+           placeholder="Name" 
+           style={[styles.text,this.state. inputNameError?styles.error:null]}
+            onChangeText={( inputName)=>{
+              this.setState({ inputName: inputName});
+              let v = validate('name', inputName);
+              this.setState({ inputNameError:!v[0], inputNameErrorMessage:v[1]})
+         
+           }}
           />
           <Text style={styles.error}>
           {this.state. inputNameErrorMessage}
@@ -216,7 +214,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
  },
  error:{ 
-    margin: 10,
+    margin: 20,
     fontSize: 10,
     paddingBottom:1, 
     paddingTop:1,

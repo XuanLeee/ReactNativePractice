@@ -1,7 +1,7 @@
 export const validation = {
   email:{
     presence:{
-      message:'email'
+      message:'please enter email'
     },
     format:{
        pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -41,7 +41,7 @@ export function validate(nameField, value){
         if(value==''||value==null){
            console.log("validation null")
            resp[0]=false
-           resp[1]=v['present']['message']
+           resp[1]=v['presence']['message']
       }else if(v.hasOwnProperty('format') && !v['format']['pattern'].test(value)){
            resp[0]=false
            resp[1]=v['format']['message']
